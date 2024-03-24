@@ -1,17 +1,12 @@
 # Medical Lab Inventory Management System
 
+## Overview
+
+This project is a Medical Lab Inventory Management System designed to manage the inventory of a medical lab using a relational database. The system is built with Python, MySQL, and HTML, aiming to demonstrate the fundamentals of full-stack software development and data warehousing. This project serves as a learning tool and a stepping stone towards a more technical role in the field.
+
 ## Database Schema
 
-This project utilizes a relational database to manage the inventory of a medical lab. 
-The schema consists of four main tables: `InventoryItems`, `Orders`, `Suppliers`, and `OrderItems`. 
-This project was started as a means of learning how to code utilizing Python, MySQL, and ultimately 
-taking the relational database and creating a interactable user interface through HTML.
-
-I built this project to understand the fundamentals of full-stack software development and data warehousing; In addition,
-this project will serve as a means to help me sharpen my skill as I continue to make small iterations.
-Ultimately, I used this a means to work on my technical acumen as I desire to transition from healthcare to that of a more technical rol
-
-### Tables
+The database schema consists of four main tables:
 
 1. **InventoryItems**
    - `item_id`: Primary Key, Unique Identifier for each inventory item.
@@ -43,171 +38,64 @@ Ultimately, I used this a means to work on my technical acumen as I desire to tr
 
 ### Relationships
 
-- **InventoryItems to Suppliers:** One-to-Many. One supplier can supply multiple items, but each item is supplied by one supplier.
-- **Orders to Suppliers:** Many-to-One. Each order is placed with one supplier, but a supplier can have multiple orders.
-- **Orders to InventoryItems (via OrderItems):** Many-to-Many. An order can contain multiple items, and an item can be part of multiple orders.
+- **InventoryItems to Suppliers**: One-to-Many. One supplier can supply multiple items, but each item is supplied by one supplier.
+- **Orders to Suppliers**: Many-to-One. Each order is placed with one supplier, but a supplier can have multiple orders.
+- **Orders to InventoryItems (via OrderItems)**: Many-to-Many. An order can contain multiple items, and an item can be part of multiple orders.
 
-### Development Plan
+## Development Plan
 
-The development of this project will follow a structured approach, starting with setting up the database schema and moving on to implementing the basic CRUD operations for inventory items and orders. 
-Further enhancements will include adding a user interface and integrating with external APIs for real-time inventory updates.
+The development plan includes setting up the database schema, implementing basic CRUD operations for inventory items and orders, and adding a user interface. Future enhancements will include integrating with external APIs for real-time inventory updates.
 
-### Contributing
+## Contributing
 
-Contributions are welcome! Please feel free to submit pull requests or open issues to discuss potential improvements or features.
+Contributions are welcome! Feel free to submit pull requests or open issues to discuss potential improvements or features.
 
-------------------------------------------------------------------------------------------------------------------------
+## Database Setup
 
-Section 1. ## [Database Setup]
+### Steps to Create the Database and Tables
 
-This section outlines the steps to create the database and tables for the Medical Lab Inventory Management System.
+1. **Create the Database**: `CREATE DATABASE IF NOT EXISTS medical_lab_inventory;`
+2. **Use the Database**: `USE medical_lab_inventory;`
+3. **Create the Tables**: Use the provided SQL commands to create each table.
+4. **Verify the Creation**: `SHOW TABLES`
 
-### Step 1: Create the Database
-	# [MySQL workbench] : CREATE DATABASE IF NOT EXISTS medical_lab_inventory;
-### Step 2: Use the Database
-	# [MySQL workbench] : USE medical_lab_inventory;
-### Step 3: Create the Tables 
-	# [MySQL workbench] CREATE TABLE (table_name) (.....
-### Step 4: Verify the Creation
-	# [MySQL workbench] SHOW TABLES
+## Suppliers: Basic CRUD Operations
 
-This documentation provides a clear record of how the database and tables were set up, which is crucial for future reference and for anyone else who might work on the project.
+### Python Functions for CRUD Operations on Suppliers
 
-------------------------------------------------------------------------------------------------------------------------
+- **Connect to the Database**: Use `create_connection()` to establish a connection.
+- **Insert Operation**: `insert_supplier(connection, supplier_name, contact_name, phone, email)`
+- **Read Operation**: `get_suppliers(connection)`
+- **Update Operation**: `update_supplier(connection, supplier_id, new_contact_name)`
+- **Delete Operation**: `delete_supplier(connection, supplier_id)`
 
-Section 2. ## [Suppliers] [Basic CRUD Operations]
+## Inventory Items: Basic CRUD Operations
 
-This section outlines how to perform basic CRUD (CREATE, READ, UPDATE, DELETE) operations on the Medical Laboratory Inventory Management System using Python.
-This section outlines specifically for suppliers.
+### Python Functions for CRUD Operations on Inventory Items
 
-### Step 1: Connect to the Database
+- **Connect to Database**: Use `create_connection(test_mode=True)` for test environment.
+- **Insert Item**: `insert_item(connection, item_name, quantity, unit_price, supplier_id, reorder_level, reorder_quantity)`
+- **Read Operation**: Implemented in `get_items(connection)`
+- **Update Item**: Implemented in `update_item(connection, item_id, ...)`
+- **Delete Item**: Implemented in `delete_item(connection, item_id)`
 
-[Python]
-import mysql.connector
-def create_connection(): 
-	connection = mysql.connector.connect( host="localhost", 
-		user="your_username", 
-		password="your_password", 
-		database="medical_lab_inventory"
-) 
-return connection
+## Testing
 
-### Step 2: Insert Operation
+Unit tests are provided for both suppliers and inventory items to ensure the CRUD operations work as expected.
 
-[Python]
-def insert_supplier(connection, supplier_name, contact_name, phone, email): 
-# Function implementation
-
-### Step 3: Read Operation
-
-[Python]
-def get_suppliers(connection): 
-# Function implementation
-
-### Step 4: Update Operation
-	
-[Python]
-def update_supplier(connection, supplier_id, new_contact_name): 
-# Function implementation
-
-### Step 5: Delete Operation
-
-[Python]
-def delete_supplier(connection, supplier_id): 
-# Function implementation
-
-### Step 6: Testing the Operations
-# Creation of test_database_operations.py
-# To enable a test environment and separation from the production environment, a new SQL Database was generated named: medical_laboratory_inventory_test
-
-[Python]
-
-import unittest
-from Database.operations import create_connection, insert_supplier, get_suppliers, delete_supplier
-
-class TestDatabaseOperations(unittest.TestCase):
-	def setUp(self):
- 		self.connection = create_connection(test_mode=True)
-   	def tearDown(self):
-    		self.connection.close()
-      	def test_insert_supplier(self):
-       		# Tests for inserting a supplier
-	 	supplier_name = "Test Supplier"
-   		contact_name = "Test Contact"
-     		phone = "1234567890"
-       		email = "test@example.com"
-	 	supplier_id = insert_supplier(self.connection, supplier_name, contact_name, phone, email)
-   	def test_get_suppliers(self):
-    		suppliers = get_suppliers(self.connection)
- 	def test_delete_supplier(self):
-        	supplier_name = "Test Supplier to Delete"
-        	contact_name = "Test Contact"
-        	phone = "1234567890"
-        	email = "test@example.com"
-        	supplier_id = insert_supplier(self.connection, supplier_name, contact_name, phone, email)
-
-delete_supplier(self.connection, supplier_id)
-
-    # Add more test methods as needed for other operations
-
-if __name__ == "__main__":
-    unittest.main()
-
-# Test environment is created to test for different functionalities that were established in operations.py.
-------------------------------------------------------------------------------------------------------------------------
-## Section 3: [Inventory Items] [Basic CRUD Operations]
-
-This section introduces the `inventoryitems.py` script, which manages inventory items in a medical laboratory setting. The script provides functionalities to insert, retrieve, update, and delete inventory items from a MySQL database. This section was simplified but follows the same idea as the operations.py script regarding suppliers where we introduce basic CRUD operations: insert_item, get_items, update_item, and delete_item.
-
-### Prerequisites
+## Prerequisites
 
 - Python 3.x
 - MySQL Server
 - `mysql-connector-python` package
 
-### Installation
+## Installation
 
-1. Ensure you have Python 3.x installed on your system.
-2. Install the `mysql-connector-python` package using pip:
- 	pip install mysql-connector-python
-3. Clone this repository or download the 'inventoryitems.py' script.
-4. Set up your MySQL database with the necessary schema for inventory items.
+1. Install Python 3.x.
+2. Install `mysql-connector-python` using pip: `pip install mysql-connector-python`.
+3. Clone this repository or download the necessary scripts.
+4. Set up your MySQL database with the required schema.
 
-### Step-by-step documentation ###
-# Step 1: Connect to Database
+## Conclusion
 
-def create_connection(test_mode=True):
-	if test_mode:
-        	host = "localhost"
-        	database = "medical_lab_inventory_test"
-        	user = "root"
-        	password = "MLSdatabaseproj"
-	else:
-        	host = "localhost"
-        	database = "medical_lab_inventory"
-        	user = "root"
-        	password = "MLSdatabaseproj"
-	connection = mysql.connector.connect(
-        	host=host,
-        	user=user,
-        	password=password,
-        	database=database
-	 )
-	print("Database connection successful.")
-	return connection
- 
-### Step 2 : Insert Item function
-
-def insert_item(connection, item_name, quantity, unit_price, supplier_id, reorder_level, reorder_quantity):
-    cursor = connection.cursor()
-    query = """
-    INSERT INTO InventoryItems (item_name, quantity, unit_price, supplier_id, reorder_level, reorder_quantity)
-    VALUES (%s, %s, %s, %s, %s, %s)
-    """
-    # Round unit_price to two decimal places
-    unit_price_rounded = round(float(unit_price), 2)
-    cursor.execute(query, (item_name, quantity, unit_price_rounded, supplier_id, reorder_level, reorder_quantity))
-    connection.commit()
-    print(f"Item {item_name} added successfully.")
-
-
+This project is a comprehensive demonstration of managing a medical lab inventory using a relational database, Python, and MySQL. It serves as a learning tool and a foundation for further development in the field of software engineering.
