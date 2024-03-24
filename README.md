@@ -96,6 +96,30 @@ Unit tests are provided for both suppliers and inventory items to ensure the CRU
 3. Clone this repository or download the necessary scripts.
 4. Set up your MySQL database with the required schema.
 
+## Web Application with Flask and HTML
+
+This project also includes a Flask web application that provides an interactive user interface for managing the inventory. The Flask application is defined in `app.py` and uses HTML templates to render the user interface.
+
+### Key Features
+
+- **Home Page**: The home page (`/`) provides an overview of the inventory management system.
+- **About Page**: The about page (`/about`) provides information about the project.
+- **Suppliers Page**: The suppliers page (`/suppliers`) lists all suppliers in the database.
+- **Inventory Items Page**: The inventory items page (`/inventory_items`) lists all inventory items.
+- **Order History Page**: The order history page (`/order_history`) lists all orders.
+- **Add Supplier**: Allows adding a new supplier to the database.
+- **Delete Supplier**: Allows deleting a supplier from the database.
+- **Update Supplier**: Allows updating a supplier's information in the database.
+- **Insert Item**: Allows adding a new item to the inventory.
+- **Update Item**: Allows updating an item's information in the inventory.
+- **Delete Item**: Allows deleting an item from the inventory.
+
+### Running the Flask Application
+
+To run the Flask application, ensure you have Python 3.x and the required packages installed. Then, navigate to the project directory in your terminal and run: bash python app.py
+
+The application will start, and you can access it by opening a web browser and navigating to `http://localhost:5000`.
+
 ## Conclusion
 
 This project is a comprehensive demonstration of managing a medical lab inventory using a relational database, Python, and MySQL. It serves as a learning tool and a foundation for further development in the field of software engineering.
