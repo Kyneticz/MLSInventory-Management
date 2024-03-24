@@ -7,6 +7,10 @@ The schema consists of four main tables: `InventoryItems`, `Orders`, `Suppliers`
 This project was started as a means of learning how to code utilizing Python, MySQL, and ultimately 
 taking the relational database and creating a interactable user interface through HTML.
 
+I built this project to understand the fundamentals of full-stack software development and data warehousing; In addition,
+this project will serve as a means to help me sharpen my skill as I continue to make small iterations.
+Ultimately, I used this a means to work on my technical acumen as I desire to transition from healthcare to that of a more technical rol
+
 ### Tables
 
 1. **InventoryItems**
@@ -54,7 +58,7 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 ------------------------------------------------------------------------------------------------------------------------
 
-1. ## Database Setup
+Section 1. ## [Database Setup]
 
 This section outlines the steps to create the database and tables for the Medical Lab Inventory Management System.
 
@@ -71,9 +75,10 @@ This documentation provides a clear record of how the database and tables were s
 
 ------------------------------------------------------------------------------------------------------------------------
 
-2. ## Basic CRUD Operations
+Section 2. ## [Suppliers] [Basic CRUD Operations]
 
 This section outlines how to perform basic CRUD (CREATE, READ, UPDATE, DELETE) operations on the Medical Laboratory Inventory Management System using Python.
+This section outlines specifically for suppliers.
 
 ### Step 1: Connect to the Database
 
@@ -90,22 +95,119 @@ return connection
 ### Step 2: Insert Operation
 
 [Python]
-def insert_supplier(connection, supplier_name, contact_name, phone, email): # Function implementation
+def insert_supplier(connection, supplier_name, contact_name, phone, email): 
+# Function implementation
 
 ### Step 3: Read Operation
 
 [Python]
-def get_suppliers(connection): # Function implementation
+def get_suppliers(connection): 
+# Function implementation
 
 ### Step 4: Update Operation
 	
 [Python]
-def update_supplier(connection, supplier_id, new_contact_name): # Function implementation
+def update_supplier(connection, supplier_id, new_contact_name): 
+# Function implementation
 
 ### Step 5: Delete Operation
 
 [Python]
-def delete_supplier(connection, supplier_id): # Function implementation
+def delete_supplier(connection, supplier_id): 
+# Function implementation
 
 ### Step 6: Testing the Operations
+# Creation of test_database_operations.py
+# To enable a test environment and separation from the production environment, a new SQL Database was generated named: medical_laboratory_inventory_test
+
+[Python]
+
+import unittest
+from Database.operations import create_connection, insert_supplier, get_suppliers, delete_supplier
+
+class TestDatabaseOperations(unittest.TestCase):
+	def setUp(self):
+ 		self.connection = create_connection(test_mode=True)
+   	def tearDown(self):
+    		self.connection.close()
+      	def test_insert_supplier(self):
+       		# Tests for inserting a supplier
+	 	supplier_name = "Test Supplier"
+   		contact_name = "Test Contact"
+     		phone = "1234567890"
+       		email = "test@example.com"
+	 	supplier_id = insert_supplier(self.connection, supplier_name, contact_name, phone, email)
+   	def test_get_suppliers(self):
+    		suppliers = get_suppliers(self.connection)
+ 	def test_delete_supplier(self):
+        	supplier_name = "Test Supplier to Delete"
+        	contact_name = "Test Contact"
+        	phone = "1234567890"
+        	email = "test@example.com"
+        	supplier_id = insert_supplier(self.connection, supplier_name, contact_name, phone, email)
+
+delete_supplier(self.connection, supplier_id)
+
+    # Add more test methods as needed for other operations
+
+if __name__ == "__main__":
+    unittest.main()
+
+# Test environment is created to test for different functionalities that were established in operations.py.
+------------------------------------------------------------------------------------------------------------------------
+## Section 3: [Inventory Items] [Basic CRUD Operations]
+
+This section introduces the `inventoryitems.py` script, which manages inventory items in a medical laboratory setting. The script provides functionalities to insert, retrieve, update, and delete inventory items from a MySQL database. This section was simplified but follows the same idea as the operations.py script regarding suppliers where we introduce basic CRUD operations: insert_item, get_items, update_item, and delete_item.
+
+### Prerequisites
+
+- Python 3.x
+- MySQL Server
+- `mysql-connector-python` package
+
+### Installation
+
+1. Ensure you have Python 3.x installed on your system.
+2. Install the `mysql-connector-python` package using pip:
+ 	pip install mysql-connector-python
+3. Clone this repository or download the 'inventoryitems.py' script.
+4. Set up your MySQL database with the necessary schema for inventory items.
+
+### Step-by-step documentation ###
+# Step 1: Connect to Database
+
+def create_connection(test_mode=True):
+	if test_mode:
+        	host = "localhost"
+        	database = "medical_lab_inventory_test"
+        	user = "root"
+        	password = "MLSdatabaseproj"
+	else:
+        	host = "localhost"
+        	database = "medical_lab_inventory"
+        	user = "root"
+        	password = "MLSdatabaseproj"
+	connection = mysql.connector.connect(
+        	host=host,
+        	user=user,
+        	password=password,
+        	database=database
+	 )
+	print("Database connection successful.")
+	return connection
+ 
+### Step 2 : Insert Item function
+
+def insert_item(connection, item_name, quantity, unit_price, supplier_id, reorder_level, reorder_quantity):
+    cursor = connection.cursor()
+    query = """
+    INSERT INTO InventoryItems (item_name, quantity, unit_price, supplier_id, reorder_level, reorder_quantity)
+    VALUES (%s, %s, %s, %s, %s, %s)
+    """
+    # Round unit_price to two decimal places
+    unit_price_rounded = round(float(unit_price), 2)
+    cursor.execute(query, (item_name, quantity, unit_price_rounded, supplier_id, reorder_level, reorder_quantity))
+    connection.commit()
+    print(f"Item {item_name} added successfully.")
+
 
