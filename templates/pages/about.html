@@ -1,0 +1,22 @@
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>About this project</h1>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a> |
+        <a href="{{ url_for('about') }}">About</a> |
+        <a href="{{ url_for('suppliers') }}">Suppliers</a> |
+        <a href="{{ url_for('inventory_items') }}">Inventory Items</a> |
+        <a href="{{ url_for('order_history') }}">Order History</a> |
+    </nav>
+
+    <p>This project started as a means for me to learn full-stack development. I created this project to learn more about the integration of a data warehouse with back-end logic while also providing the user a simple UI to permit data exchange.</p>
+</body>
+</html>

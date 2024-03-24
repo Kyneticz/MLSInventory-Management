@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Inventory Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Lab Inventory Management Dashboard</h1>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a> |
+        <a href="{{ url_for('about') }}">About</a> |
+        <a href="{{ url_for('suppliers') }}">Suppliers</a> |
+        <a href="{{ url_for('inventory_items') }}">Inventory Items</a> |
+        <a href="{{ url_for('order_history') }}">Order History</a> |
+    </nav>
+    <div id="suppliers-container">
+        <!-- Suppliers will be dynamically loaded here -->
+    </div>
+</body>
+</html>
